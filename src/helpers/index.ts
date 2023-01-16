@@ -1,2 +1,3 @@
 import JWTHelper from "./jwt.helper";
-export { JWTHelper };
+import EncryptionHelper from "./encryption.helper";
+export { JWTHelper, EncryptionHelper };
