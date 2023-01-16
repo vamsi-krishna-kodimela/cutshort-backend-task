@@ -1,6 +1,15 @@
 import { Request, Response } from "express";
 import Task from "./task.schema";
 
+const getAllTasks = async (req: Request, res: Response) => {
+  try {
+    const tasks = await Task.find();
+    res.json(tasks);
+  } catch (error: any) {
+    res.status(400).send(error.message);
+  }
+};
+
 const createTask = async (req: Request, res: Response) => {
   const { title, description }: any = { ...req.body };
   if (!title) {
@@ -55,4 +64,21 @@ const updateTask = async (req: Request, res: Response) => {
   }
 };
 
-export { createTask, deleteTask, completeTask, updateTask };
+const getTaskById = async (req: Request, res: Response) => {
+  const taskId = req.params.id;
+  try {
+    const task = await Task.findById(taskId);
+    res.json(task);
+  } catch (error: any) {
+    res.status(400).send(error.message);
+  }
+};
+
+export {
+  createTask,
+  deleteTask,
+  completeTask,
+  updateTask,
+  getAllTasks,
+  getTaskById,
+};
